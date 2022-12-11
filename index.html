@@ -38,13 +38,14 @@ function game() {
     let playerSelection = getPlayerChoise();//получаем выбор пользователя
     let result = playRound(computerSelection, playerSelection);
     if (result === "player") {
-        playerScore++;
+        playerScore++; //считаем сколько раз выиграл пользователь
     } else if (result === "computer"){
-        computerScore++;
+        computerScore++; //считаем сколько раз выиграл компьютер
     }
     }
+    //смотрим кто выиграл за 5 раундов
     if (playerScore > computerScore) {
-        score = "Player wins";
+        score = "Player wins"; 
     } else if (playerScore < computerScore) {
         score = "Computer wins";
     } else { 
