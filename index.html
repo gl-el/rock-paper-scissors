@@ -1,57 +1,70 @@
 <script>
     const variants = ["rock", "paper", "scissors"]; //массив возможных значений
     //getComputerChoise возвращает одно из трех возможных значений массива variants;
-function getComputerChoise() {
-  let result = variants[Math.floor(Math.random() * 3)]; //случайное значение из переданного массива
-  return result;
-}
-//пользователю предлагается ввести в строке его выбор с помощью prompt
-function getPlayerChoise() {
-let result = prompt ("type your selection: rock, paper or scissors:");
-return result = result.toLowerCase(); //значение приводится к нижнему регистру
-}
-//console.log(playerSelection);
-//console.log(computerSelection);
-//playRound() сранивает значения ComputerSelection c PlayerSelection и возвращает победителя:
-function playRound(computerSelection, playerSelection) {
- //условия для всех выигрышных комбинаций пользоваетля
-  if ((computerSelection === "rock" && playerSelection === "paper") || 
-      (computerSelection === "scissors" && playerSelection === "rock") ||
-      (computerSelection === "paper" && playerSelection === "scissors")) {
-        console.log(`Player wins, ${playerSelection} beats ${computerSelection}`);
-    return result="player";
-  } else if (computerSelection === playerSelection) {//ничья
-    console.log(`It's a tie player have a ${playerSelection} and computer have a ${computerSelection}`)
-    return result="tie";
-  } else { //все остальные варианты - проигрыш пользователя
-    console.log(`Computer wins, ${computerSelection} beats ${playerSelection}`);
-    return result="computer";
-  }
-}
-function game() {
-    let playerScore = 0;
-    let computerScore = 0;
-    let score = "";
-    //играем пять раз
-    for (let i=1; i<=5; i++) {
-    let computerSelection = getComputerChoise();//получаем выбор компьютера
-    let playerSelection = getPlayerChoise();//получаем выбор пользователя
-    let result = playRound(computerSelection, playerSelection);
-    if (result === "player") {
-        playerScore++; //считаем сколько раз выиграл пользователь
-    } else if (result === "computer"){
-        computerScore++; //считаем сколько раз выиграл компьютер
+    function getComputerChoise() {
+        return variants[Math.floor(Math.random() * 3)];//случайное значение из переданного массива
     }
+    //пользователю предлагается ввести в строке его выбор с помощью prompt
+    function getPlayerChoise() {
+        let result = prompt("type your selection: rock, paper or scissors:");
+        return result = result.toLowerCase(); //значение приводится к нижнему регистру
     }
-    //смотрим кто выиграл за 5 раундов
-    if (playerScore > computerScore) {
-        score = "Player wins"; 
-    } else if (playerScore < computerScore) {
-        score = "Computer wins";
-    } else { 
-        score = "It's a tie";
+    //console.log(playerSelection);
+    //console.log(computerSelection);
+    //playRound() сранивает значения ComputerSelection c PlayerSelection и возвращает победителя:
+    function playRound(computerSelection, playerSelection) {
+        if (computerSelection === playerSelection) {
+            return "tie"; // проверка на ничью
+        } else {
+            switch (computerSelection) {
+                case "rock":
+                    if (playerSelection === "paper") {
+                        return "player";
+                    }
+                    else {
+                        return "computer";
+                    }
+                case "scissors":
+                    if (playerSelection === "rock") {
+                        return "player";
+                    } else {
+                        return "computer";
+                    }
+                case "paper":
+                    if (playerSelection === "scissors") {
+                        return "player";
+                    } else {
+                        return "computer";
+                    }
+            }
+        }
     }
-    return score;
-}
-console.log(game());
+    function game() {
+        let playerScore = 0;
+        let computerScore = 0;
+        //играем пять раз
+        for (let i = 1; i <= 5; i++) {
+            const computerSelection = getComputerChoise();//получаем выбор компьютера
+            const playerSelection = getPlayerChoise();//получаем выбор пользователя
+            const result = playRound(computerSelection, playerSelection);//играем раунд
+            if (result === "player") {
+                console.log(`Player wins, ${playerSelection} beats ${computerSelection}`);
+                playerScore++; //считаем сколько раз выиграл пользователь
+            } else if (result === "computer") {
+                console.log(`Computer wins, ${computerSelection} beats ${playerSelection}`);
+                computerScore++; //считаем сколько раз выиграл компьютер
+            } else {
+                console.log(`It's a tie player have a ${playerSelection} and computer have a ${computerSelection}`);
+            }
+        }
+        //смотрим кто выиграл за 5 раундов
+        if (playerScore > computerScore) {
+            return "Player wins";
+        } else if (playerScore < computerScore) {
+            return "Computer wins";
+        } else {
+            return "It's a tie";
+        }
+    }
+    console.log(game());
 </script>
