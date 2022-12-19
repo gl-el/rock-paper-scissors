@@ -47,7 +47,7 @@
   .variants {
     display: flex;
     flex-wrap: wrap;
-    flex-directon: column;
+ 
     justify-content: space-evenly;
     gap: 83px;
   }
